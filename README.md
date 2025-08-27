@@ -11,18 +11,18 @@ Para garantir que suas tarefas permaneçam salvas entre sessões, o projeto util
 - Armazenamento local com SQLite3
 
 🚀 Tecnologias Utilizadas
-- Python 3.x
+- Python 3.13
 - Flet
 - SQLite3
 
 # ✅ Task Manager – Gerenciador de Tarefas com Python e Flet
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/task-manager.git
-   cd task-manager
+   git clone https://github.com/MangusDev/Task_Manager.git
+   cd Task_Manager
 2. Crie e ative o ambiente virtual:
-python -m venv venv
-venv\Scripts\activate  # Windows
+-python -m venv venv
+-venv\Scripts\activate  # Windows
 3. Instale as dependências:
 pip install -r requirements.txt
 4. Execute o aplicativo:
