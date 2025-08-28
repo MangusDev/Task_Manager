@@ -14,6 +14,7 @@ class ToDo:
         self.page.window_always_on_top = True
         self.page.title = 'Task Manager'
         self.task = ''
+        self.task_name = ''
         self.view = 'all'
 
         # Inicialização do banco de dados SQLite e recuperação das tarefas.
@@ -63,17 +64,36 @@ class ToDo:
         
         self.update_task_list()
 
+    def remove_task(self, e):
+        self.task_name = e.control.data
+        print(f"Removendo tarefa: {self.task_name}")
+        self.db_execute('DELETE FROM tasks WHERE name = ?', params=[self.task_name])
+        self.results = self.db_execute('SELECT * FROM tasks WHERE status = ?', [self.view]) if self.view != 'all' else self.db_execute('SELECT * FROM tasks')
+        self.update_task_list()
+
+
     # Função para criar o contêiner de tarefas.
     def tasks_container(self):
         return ft.Container(
             height=self.page.height * 0.8,
             content=ft.Column(
                 controls=[
-                    ft.Checkbox(
-                        label=res[0], 
-                        on_change=self.checked,
-                        value=True if res[1] == 'complete' else False
-                    ) for res in self.results if res],
+                    ft.Row(
+                        controls=[
+                            ft.Checkbox(
+                                label=res[0],
+                                value=True if res[1] == 'complete' else False,
+                                on_change=self.checked
+                            ),
+                            ft.IconButton(
+                                icon=ft.Icons.DELETE,
+                                tooltip="Remover tarefa",
+                                data=res[0],
+                                on_click=self.remove_task
+                            )
+                        ]
+                    ) for res in self.results if res
+                ],
                 scroll=ft.ScrollMode.ALWAYS
             )
         )
